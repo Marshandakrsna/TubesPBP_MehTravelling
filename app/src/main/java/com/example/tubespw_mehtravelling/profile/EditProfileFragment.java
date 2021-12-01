@@ -23,20 +23,17 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
-
 
 import com.bumptech.glide.Glide;
 import com.example.tubespw_mehtravelling.API.ApiClient;
 import com.example.tubespw_mehtravelling.API.ApiInterface;
 import com.example.tubespw_mehtravelling.API.User.UserResponse;
-import com.example.tubespw_mehtravelling.MainActivity;
 import com.example.tubespw_mehtravelling.R;
 import com.example.tubespw_mehtravelling.databinding.FragmentEditProfileBinding;
-import com.example.tubespw_mehtravelling.hardware.QRScannerMain;
 import com.example.tubespw_mehtravelling.profile.model.User;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;

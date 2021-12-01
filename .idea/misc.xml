@@ -45,6 +45,11 @@
         <entry key="..\:/Kuliah/SEMESTER 5/Coolyeah-5/1. PBP/TUBES/UAS 3/app/src/main/res/layout/item_survey.xml" value="0.1796875" />
         <entry key="..\:/Kuliah/SEMESTER 5/Coolyeah-5/1. PBP/TUBES/UAS 3/app/src/main/res/menu/home_menu.xml" value="0.1" />
         <entry key="..\:/Kuliah/SEMESTER 5/Coolyeah-5/1. PBP/TUBES/UAS 3/app/src/main/res/menu/menu_dropdown.xml" value="0.1" />
+        <entry key="..\:/Kuliah/SEMESTER 5/Coolyeah-5/1. PBP/TUBES/UAS 4/app/src/main/res/layout/activity_home.xml" value="0.1" />
+        <entry key="..\:/Kuliah/SEMESTER 5/Coolyeah-5/1. PBP/TUBES/UAS 4/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Kuliah/SEMESTER 5/Coolyeah-5/1. PBP/TUBES/UAS 4/app/src/main/res/layout/fragment_profile.xml" value="0.1" />
+        <entry key="..\:/Kuliah/SEMESTER 5/Coolyeah-5/1. PBP/TUBES/UAS 4/app/src/main/res/layout/fragment_update.xml" value="0.1796875" />
+        <entry key="..\:/Kuliah/SEMESTER 5/Coolyeah-5/1. PBP/TUBES/UAS 4/app/src/main/res/layout/item_list.xml" value="0.1796875" />
         <entry key="..\:/Kuliah/SEMESTER 5/Coolyeah-5/1. PBP/TUBES/UAS2/app/src/main/res/layout/activity_add_edit.xml" value="0.1" />
         <entry key="..\:/Kuliah/SEMESTER 5/Coolyeah-5/1. PBP/TUBES/UAS2/app/src/main/res/layout/activity_survey.xml" value="0.1796875" />
         <entry key="..\:/Kuliah/SEMESTER 5/Coolyeah-5/1. PBP/TUBES/UAS2/app/src/main/res/layout/item_survey.xml" value="0.1796875" />
@@ -91,7 +96,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">
