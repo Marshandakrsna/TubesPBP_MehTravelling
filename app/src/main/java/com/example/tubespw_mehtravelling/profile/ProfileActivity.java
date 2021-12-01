@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -27,7 +28,7 @@ import com.example.tubespw_mehtravelling.API.User.UserResponse;
 import com.example.tubespw_mehtravelling.Constant;
 import com.example.tubespw_mehtravelling.MainActivity;
 import com.example.tubespw_mehtravelling.R;
-import com.example.tubespw_mehtravelling.databinding.FragmentProfileBinding;
+import com.example.tubespw_mehtravelling.databinding.ProfileActivityBinding;
 import com.example.tubespw_mehtravelling.profile.model.User;
 import com.google.android.material.textview.MaterialTextView;
 
@@ -39,7 +40,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProfileFragment extends Fragment {
+public class ProfileActivity extends AppCompatActivity {
 
     private com.example.tubespw_mehtravelling.profile.ProfileViewModel profileViewModel;
     private MaterialTextView email, name, username, phone, city, country;
@@ -59,45 +60,42 @@ public class ProfileFragment extends Fragment {
     int themeColor;
     int appColor;
 
-    FragmentProfileBinding profileBinding;
+    ProfileActivityBinding profileBinding;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+        profileBinding = DataBindingUtil.setContentView(this, R.layout.profile_activity);
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-
-        profileBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false);
-        View root = profileBinding.getRoot();
-
-        MainActivity main = (MainActivity)getActivity();
-
+//        MainActivity main;
         //Get Theme
-        app_preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        app_preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         appColor = app_preferences.getInt("color", 0);
         appTheme = app_preferences.getInt("theme", 0);
         themeColor = appColor;
         constant.color = appColor;
 
-        if (themeColor == 0){
-            main.setTheme(Constant.theme);
-        }else if (appTheme == 0){
-            main.setTheme(Constant.theme);
-        }else{
-            main.setTheme(appTheme);
-        }
+//        if (themeColor == 0){
+//            main.setTheme(Constant.theme);
+//        }else if (appTheme == 0){
+//            main.setTheme(Constant.theme);
+//        }else{
+//            main.setTheme(appTheme);
+//        }
 
         //Get sharepreferences for ID user
-        shared = getActivity().getSharedPreferences("getId", Context.MODE_PRIVATE);
+        shared = getSharedPreferences("getId", Context.MODE_PRIVATE);
         idUser = shared.getInt("idUser", -1);
         token = shared.getString("token", null);
         Log.d("ID USER Profile", String.valueOf(idUser));
 
-        name = root.findViewById(R.id.tv_nama);
-        email = root.findViewById(R.id.et_email);
-        phone = root.findViewById(R.id.et_phone);
-        country = root.findViewById(R.id.et_country);
-        city = root.findViewById(R.id.et_city);
-        image = root.findViewById(R.id.profile_image_profile);
+        name = findViewById(R.id.tv_nama);
+        email = findViewById(R.id.et_email);
+        phone = findViewById(R.id.et_phone);
+        country = findViewById(R.id.et_country);
+        city =findViewById(R.id.et_city);
+        image = findViewById(R.id.profile_image_profile);
 
-        Intent i = getActivity().getIntent();
+        Intent i = new Intent(getApplicationContext(), ProfileActivity.class);
         sIdUser = i.getStringExtra("id");
         sName = i.getStringExtra("name");
         sEmail = i.getStringExtra("email");
@@ -114,7 +112,7 @@ public class ProfileFragment extends Fragment {
 
         loadUser();
 
-        Button btnEdit = root.findViewById(R.id.btn_editProfile);
+        Button btnEdit = findViewById(R.id.btn_editProfile);
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,7 +120,7 @@ public class ProfileFragment extends Fragment {
 //                        R.id.action_navigation_notifications_to_editProfileFragment);
             }
         });
-        return root;
+
     }
 
     private void loadUser() {
@@ -157,7 +155,7 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onFailure(Call<UserResponse> call, Throwable t) {
-                Toast.makeText(getContext(), "Kesalahan Jaringan", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Kesalahan Jaringan", Toast.LENGTH_SHORT).show();
             }
         });
     }

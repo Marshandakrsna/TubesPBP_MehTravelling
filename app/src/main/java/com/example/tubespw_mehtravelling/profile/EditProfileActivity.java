@@ -33,7 +33,7 @@ import com.example.tubespw_mehtravelling.API.ApiClient;
 import com.example.tubespw_mehtravelling.API.ApiInterface;
 import com.example.tubespw_mehtravelling.API.User.UserResponse;
 import com.example.tubespw_mehtravelling.R;
-import com.example.tubespw_mehtravelling.databinding.FragmentEditProfileBinding;
+import com.example.tubespw_mehtravelling.databinding.EditProfileBinding;
 import com.example.tubespw_mehtravelling.profile.model.User;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -54,12 +54,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class EditProfileFragment extends Fragment {
+public class EditProfileActivity extends AppCompatActivity{
     private TextInputLayout nameLayout, phoneLayout, cityLayout, countryLayout;
     private TextInputEditText name, phone, city, country;
     private String nameEdit, phoneEdit, cityEdit, countryEdit;
     private CircleImageView image;
-    FragmentEditProfileBinding editProfileBinding;
+    EditProfileBinding editProfileBinding;
     private String sIdUser, sName, sEmail, sCountry, sCity, sPhone, sImage;
     private View view;
 
@@ -79,64 +79,69 @@ public class EditProfileFragment extends Fragment {
 
     private ProgressDialog progressDialog;
 
-    public EditProfileFragment() {
-        // Required empty public constructor
-    }
+
+//    @Override
+//    public View onCreate(LayoutInflater inflater, ViewGroup container,
+//                             Bundle savedInstanceState) {
+//        // Inflate the layout for this fragment
+//        editProfileBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_edit_profile, container, false);
+//        view = inflater.inflate(R.layout.fragment_edit_profile, container, false);
+//
+//        //Get sharepreferences for ID user
+//        shared = getSharedPreferences("getId", Context.MODE_PRIVATE);
+//        idUser = shared.getInt("idUser", -1);
+//        token = shared.getString("token", null);
+//        Log.d("ID USER Edit Profile", String.valueOf(idUser));
+//
+//        progressDialog = new ProgressDialog(getApplicationContext());
+//
+//        Intent i = new Intent(getApplicationContext(), EditProfileActivity.class);
+//
+//        sIdUser = i.getStringExtra("id");
+//        sName = i.getStringExtra("name");
+//        sEmail = i.getStringExtra("email");
+//        sCountry = i.getStringExtra("country");
+//        sCity = i.getStringExtra("city");
+//        sPhone = i.getStringExtra("phone");
+//        sImage = i.getStringExtra("image");
+//
+//        image = view.findViewById(R.id.profile_image_edit);
+//
+//        //Fill the field with previous values
+//        getUsers();
+//
+//        return view;
+//    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-    }
+        setContentView(R.layout.edit_profile);
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        editProfileBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_edit_profile, container, false);
-        view = inflater.inflate(R.layout.fragment_edit_profile, container, false);
+        btnEdit = findViewById(R.id.btn_editSubmitProfile);
+        editProfileBinding = DataBindingUtil.setContentView(this, R.layout.edit_profile);
+//        editProfileBinding.setActivity(this);
 
-        //Get sharepreferences for ID user
-        shared = getActivity().getSharedPreferences("getId", Context.MODE_PRIVATE);
+        progressDialog = new ProgressDialog(getApplicationContext());
+        shared = getSharedPreferences("getId", Context.MODE_PRIVATE);
         idUser = shared.getInt("idUser", -1);
         token = shared.getString("token", null);
         Log.d("ID USER Edit Profile", String.valueOf(idUser));
 
-        progressDialog = new ProgressDialog(getContext());
+        name = findViewById(R.id.ti_name);
+        phone = findViewById(R.id.ti_phone_number);
+        city = findViewById(R.id.ti_city);
+        country = findViewById(R.id.ti_country);
 
-        Intent i = getActivity().getIntent();
-        sIdUser = i.getStringExtra("id");
-        sName = i.getStringExtra("name");
-        sEmail = i.getStringExtra("email");
-        sCountry = i.getStringExtra("country");
-        sCity = i.getStringExtra("city");
-        sPhone = i.getStringExtra("phone");
-        sImage = i.getStringExtra("image");
+        nameLayout = findViewById(R.id.til_name);
+        phoneLayout =findViewById(R.id.til_phone_number);
+        cityLayout = findViewById(R.id.til_city);
+        countryLayout = findViewById(R.id.til_country);
 
-        image = view.findViewById(R.id.profile_image_edit);
-
-        //Fill the field with previous values
-        getUsers();
-
-        return view;
-    }
-
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        //Get ID
-        btnEdit = view.findViewById(R.id.btn_editSubmitProfile);
-
-        name = view.findViewById(R.id.ti_name);
-        phone = view.findViewById(R.id.ti_phone_number);
-        city = view.findViewById(R.id.ti_city);
-        country = view.findViewById(R.id.ti_country);
-
-        nameLayout = view.findViewById(R.id.til_name);
-        phoneLayout = view.findViewById(R.id.til_phone_number);
-        cityLayout = view.findViewById(R.id.til_city);
-        countryLayout = view.findViewById(R.id.til_country);
-
-        btnCancel = view.findViewById(R.id.btn_editCancel);
+        btnCancel = findViewById(R.id.btn_editCancel);
         btnCancel.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
 //                Intent mainActivity = new Intent(EditProfileFragment.this, MainActivity.class);
@@ -149,10 +154,10 @@ public class EditProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 //if system os is >= marshmallow, request runtime permission
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (ActivityCompat.checkSelfPermission(getContext(),
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (ActivityCompat.checkSelfPermission(getApplicationContext(),
                             Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
-                            ActivityCompat.checkSelfPermission(getContext(),
+                            ActivityCompat.checkSelfPermission(getApplicationContext(),
                                     Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                         //request enabling permission
                         String[] permission = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
@@ -177,6 +182,8 @@ public class EditProfileFragment extends Fragment {
             }
         });
     }
+
+
     //handling permission result
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -186,7 +193,7 @@ public class EditProfileFragment extends Fragment {
                 if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     capturePhoto(); // permission from popup was granted
                 } else {
-                    Toast.makeText(this.getContext(), "Permission Denied", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this.getApplicationContext(), "Permission Denied", Toast.LENGTH_SHORT).show();
                 }
             }
         }
@@ -200,7 +207,7 @@ public class EditProfileFragment extends Fragment {
         {
             selectedImage = data.getData();
             try {
-                InputStream inputStream = getActivity().getContentResolver().openInputStream(selectedImage);
+                InputStream inputStream = getContentResolver().openInputStream(selectedImage);
                 bitmap = BitmapFactory.decodeStream(inputStream);
             } catch (Exception e) {
                 Toast.makeText(view.getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -263,14 +270,14 @@ public class EditProfileFragment extends Fragment {
                 String url = "https://www.mehtravellingtubes.xyz/public/api/" + sImage;
                 System.out.println("url gambar " + url);
 
-                Glide.with(getContext())
+                Glide.with(getApplicationContext())
                         .load(url)
                         .into(image);
             }
 
             @Override
             public void onFailure(Call<UserResponse> call, Throwable t) {
-                Toast.makeText(getContext(), "Kesalahan Jaringan", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Kesalahan Jaringan", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -322,14 +329,14 @@ public class EditProfileFragment extends Fragment {
                 public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
                     //If response's code is 200
                     if (response.isSuccessful()) {
-                        Toast.makeText(getContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();
 //                        Intent mainActivity = new Intent(EditProfileFragment.this, MainActivity.class);
 //                        startActivity(mainActivity);
                     } else { //If response's code is 4xx (error)
                         try {
                             JSONObject error = new JSONObject(response.errorBody().string());
-                            Toast.makeText(getContext(), error.optString("message"), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), error.optString("message"), Toast.LENGTH_SHORT).show();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         } catch (IOException e) {
@@ -341,7 +348,7 @@ public class EditProfileFragment extends Fragment {
 
                 @Override
                 public void onFailure(Call<UserResponse> call, Throwable t) {
-                    Toast.makeText(getContext(), "Update data failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Update data failed", Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
                     Log.i("UPDATE", "Msg: " + t.getMessage());
                 }

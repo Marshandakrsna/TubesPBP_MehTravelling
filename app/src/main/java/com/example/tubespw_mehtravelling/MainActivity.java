@@ -2,7 +2,6 @@ package com.example.tubespw_mehtravelling;
 
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -10,13 +9,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -26,16 +21,13 @@ import com.example.tubespw_mehtravelling.API.ApiInterface;
 import com.example.tubespw_mehtravelling.API.User.UserResponse;
 import com.example.tubespw_mehtravelling.Preferences.UserPreferences;
 import com.example.tubespw_mehtravelling.databinding.ActivityMainBinding;
-import com.example.tubespw_mehtravelling.hardware.QRScannerActivity;
 import com.example.tubespw_mehtravelling.hardware.QRScannerMain;
 import com.example.tubespw_mehtravelling.listDestinasi.TampilDataDestinasi;
 import com.example.tubespw_mehtravelling.pesanDestinasi.ActivityInputPesan;
 import com.example.tubespw_mehtravelling.pesanDestinasi.PesanActivity;
-import com.example.tubespw_mehtravelling.pesanDestinasi.PesanFragment;
-import com.example.tubespw_mehtravelling.profile.ProfileFragment;
+import com.example.tubespw_mehtravelling.profile.ProfileActivity;
 import com.example.tubespw_mehtravelling.survey.SurveyActivity;
 import com.example.tubespw_mehtravelling.ui.auth.LoginActivity;
-import com.example.tubespw_mehtravelling.ui.auth.RegisterActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -85,10 +77,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(mainActivity);
             setTitle("QR Scanner");
         }
-        else if(item.getItemId() == R.id.menu_profile){
-            changeFragment(new ProfileFragment());
-            setTitle("Profile");
-        }
+
         else if(item.getItemId()==R.id.menu_logout) {
             logout();
         }
@@ -171,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
     public View.OnClickListener btnProfileMenu= new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent mainActivity = new Intent(MainActivity.this, ProfileFragment.class);
+            Intent mainActivity = new Intent(MainActivity.this, ProfileActivity.class);
             startActivity(mainActivity);
         }
     };

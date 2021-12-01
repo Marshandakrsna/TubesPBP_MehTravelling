@@ -15,7 +15,7 @@
         android:id="@+id/frame_profile"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.profile.ProfileFragment"
+        tools:context=".ui.profile.ProfileActivity"
         android:background="?android:attr/colorBackground">
         <!-- Custom Toolbar -->
         <androidx.appcompat.widget.Toolbar

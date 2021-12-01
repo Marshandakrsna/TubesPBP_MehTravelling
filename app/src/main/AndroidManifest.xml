@@ -17,7 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TubesPW_MehTravelling">
         <activity
-            android:name=".profile.EditProfileFragment"
+            android:name=".profile.EditProfileActivity"
             android:exported="true" />
         <activity
             android:name=".survey.AddEditActivity"
@@ -64,6 +64,10 @@
         <activity
             android:name=".hardware.QRScannerMain"
             android:exported="true" />
+        <activity
+            android:name=".profile.ProfileActivity"
+            android:exported="true" />
+
 
         <receiver android:name=".PushNotif.NotificationReceiver" />
     </application>
