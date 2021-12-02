@@ -32,6 +32,7 @@ import com.bumptech.glide.Glide;
 import com.example.tubespw_mehtravelling.API.ApiClient;
 import com.example.tubespw_mehtravelling.API.ApiInterface;
 import com.example.tubespw_mehtravelling.API.User.UserResponse;
+import com.example.tubespw_mehtravelling.MainActivity;
 import com.example.tubespw_mehtravelling.R;
 import com.example.tubespw_mehtravelling.databinding.EditProfileBinding;
 import com.example.tubespw_mehtravelling.profile.model.User;
@@ -144,35 +145,41 @@ public class EditProfileActivity extends AppCompatActivity{
 
             @Override
             public void onClick(View v) {
-//                Intent mainActivity = new Intent(EditProfileFragment.this, MainActivity.class);
-//                startActivity(mainActivity);
+                Intent mainActivity = new Intent(EditProfileActivity.this, MainActivity.class);
+                startActivity(mainActivity);
+            }
+        });
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
             }
         });
 
         //Profile image pressed
-        image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //if system os is >= marshmallow, request runtime permission
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    if (ActivityCompat.checkSelfPermission(getApplicationContext(),
-                            Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
-                            ActivityCompat.checkSelfPermission(getApplicationContext(),
-                                    Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                        //request enabling permission
-                        String[] permission = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
-                        //show popup to request permission
-                        requestPermissions(permission, PERMISSION_CODE);
-                    } else {
-                        //permission granted
-                        capturePhoto();
-                    }
-                } else {
-                    //system os < marshmallow
-                    capturePhoto();
-                }
-            }
-        });
+//        image.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                //if system os is >= marshmallow, request runtime permission
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//                    if (ActivityCompat.checkSelfPermission(getApplicationContext(),
+//                            Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED ||
+//                            ActivityCompat.checkSelfPermission(getApplicationContext(),
+//                                    Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+//                        //request enabling permission
+//                        String[] permission = {Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+//                        //show popup to request permission
+//                        requestPermissions(permission, PERMISSION_CODE);
+//                    } else {
+//                        //permission granted
+//                        capturePhoto();
+//                    }
+//                } else {
+//                    //system os < marshmallow
+//                    capturePhoto();
+//                }
+//            }
+//        });
 
         //Button edit profile pressed
         btnEdit.setOnClickListener(new View.OnClickListener() {
@@ -331,8 +338,8 @@ public class EditProfileActivity extends AppCompatActivity{
                     if (response.isSuccessful()) {
                         Toast.makeText(getApplicationContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();
-//                        Intent mainActivity = new Intent(EditProfileFragment.this, MainActivity.class);
-//                        startActivity(mainActivity);
+                        Intent mainActivity = new Intent(EditProfileActivity.this, MainActivity.class);
+                        startActivity(mainActivity);
                     } else { //If response's code is 4xx (error)
                         try {
                             JSONObject error = new JSONObject(response.errorBody().string());

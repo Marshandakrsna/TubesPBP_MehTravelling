@@ -24,11 +24,13 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.tubespw_mehtravelling.API.ApiClient;
 import com.example.tubespw_mehtravelling.API.ApiInterface;
+import com.example.tubespw_mehtravelling.API.User.UserDAO;
 import com.example.tubespw_mehtravelling.API.User.UserResponse;
 import com.example.tubespw_mehtravelling.Constant;
 import com.example.tubespw_mehtravelling.MainActivity;
 import com.example.tubespw_mehtravelling.R;
 import com.example.tubespw_mehtravelling.databinding.ProfileActivityBinding;
+import com.example.tubespw_mehtravelling.pesanDestinasi.ActivityInputPesan;
 import com.example.tubespw_mehtravelling.profile.model.User;
 import com.google.android.material.textview.MaterialTextView;
 
@@ -49,6 +51,7 @@ public class ProfileActivity extends AppCompatActivity {
     private String sIdUser, sName, sEmail, sCountry, sCity, sPhone, sImage;
     Bitmap[] array;
 
+    Button btnEdit;
     SharedPreferences shared;
     int idUser;
     String token;
@@ -61,6 +64,7 @@ public class ProfileActivity extends AppCompatActivity {
     int appColor;
 
     ProfileActivityBinding profileBinding;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -73,6 +77,7 @@ public class ProfileActivity extends AppCompatActivity {
         appTheme = app_preferences.getInt("theme", 0);
         themeColor = appColor;
         constant.color = appColor;
+
 
 //        if (themeColor == 0){
 //            main.setTheme(Constant.theme);
@@ -116,8 +121,8 @@ public class ProfileActivity extends AppCompatActivity {
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Navigation.findNavController(view).navigate(
-//                        R.id.action_navigation_notifications_to_editProfileFragment);
+                startActivity(new Intent(ProfileActivity.this, EditProfileActivity.class));
+                finish();
             }
         });
 
@@ -130,33 +135,36 @@ public class ProfileActivity extends AppCompatActivity {
         {
             @Override
             public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
-                sName = response.body().getUsers().getName();
-                sEmail = response.body().getUsers().getEmail();
-                sPhone = response.body().getUsers().getPhone();
-                sCity = response.body().getUsers().getCity();
-                sCountry = response.body().getUsers().getCountry();
-                sImage = response.body().getUsers().getPhoto();
-                name.setText(sName);
-                email.setText(sEmail);
-                phone.setText(sPhone);
-                city.setText(sCity);
-                country.setText(sCountry);
+                if(response.isSuccessful()) {
 
-                String url = "url = \"https://www.mehtravellingtubes.xyz/public/api/" + sImage;
+                    sName = response.body().getUsers().getName();
+                    sEmail = response.body().getUsers().getEmail();
+                    sPhone = response.body().getUsers().getPhone();
+                    sCity = response.body().getUsers().getCity();
+                    sCountry = response.body().getUsers().getCountry();
+                    sImage = response.body().getUsers().getPhoto();
+                    name.setText(sName);
+                    email.setText(sEmail);
+                    phone.setText(sPhone);
+                    city.setText(sCity);
+                    country.setText(sCountry);
+                }
+
+                String url = "https://www.mehtravellingtubes.xyz/public/api/" + sImage;
                 System.out.println("url gambar " + url);
 
-//                Glide.with(getContext())
-//                        .load("http://nugaskuy.site/storage/" + sImage)
-//                        .diskCacheStrategy(DiskCacheStrategy.NONE)
-//                        .skipMemoryCache(true)
+                Glide.with(ProfileActivity.this)
+                        .load("https://www.mehtravellingtubes.xyz/public/api/" + sImage)
+                        .into(image);
+//                Glide.with(getApplicationContext())
+//                        .load(url)
 //                        .into(image);
-
             }
-
             @Override
             public void onFailure(Call<UserResponse> call, Throwable t) {
                 Toast.makeText(getApplicationContext(), "Kesalahan Jaringan", Toast.LENGTH_SHORT).show();
             }
         });
-    }
+            Toast.makeText(ProfileActivity.this,"Berhasil",Toast.LENGTH_SHORT).show();
+        }
 }

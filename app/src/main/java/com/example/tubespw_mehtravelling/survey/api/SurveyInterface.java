@@ -45,4 +45,6 @@ public interface SurveyInterface {
     @Headers({"Accept: application/json"})
     @DELETE("travelling/{id}")
     Call<SurveyResponse> deleteSurvey(@Path("id") long id,@Header("Authorization")String authHeader);
+
+    Call<SurveyResponse> createSurvey(Survey survey);
 }

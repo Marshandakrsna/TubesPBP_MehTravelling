@@ -2,6 +2,7 @@ package com.example.tubespw_mehtravelling.API;
 
 
 import com.example.tubespw_mehtravelling.API.User.UserResponse;
+import com.google.gson.annotations.SerializedName;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -12,6 +13,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface ApiInterface {
+
     @GET("detailuser")
     Call<UserResponse> getUser(@Header("Authorization") String authToken);
 
