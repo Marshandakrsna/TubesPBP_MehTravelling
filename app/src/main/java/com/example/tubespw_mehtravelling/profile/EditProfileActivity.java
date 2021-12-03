@@ -82,11 +82,10 @@ public class EditProfileActivity extends AppCompatActivity{
 
 
 //    @Override
-//    public View onCreate(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
+//    public View onCreate(Bundle savedInstanceState) {
 //        // Inflate the layout for this fragment
-//        editProfileBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_edit_profile, container, false);
-//        view = inflater.inflate(R.layout.fragment_edit_profile, container, false);
+////        editProfileBinding = DataBindingUtil.inflate(inflater, R.layout.edit_profile, container, false);
+////        view = inflater.inflate(R.layout.edit_profile, container, false);
 //
 //        //Get sharepreferences for ID user
 //        shared = getSharedPreferences("getId", Context.MODE_PRIVATE);
@@ -109,7 +108,7 @@ public class EditProfileActivity extends AppCompatActivity{
 //        image = view.findViewById(R.id.profile_image_edit);
 //
 //        //Fill the field with previous values
-//        getUsers();
+//        getUser();
 //
 //        return view;
 //    }
@@ -131,14 +130,24 @@ public class EditProfileActivity extends AppCompatActivity{
         Log.d("ID USER Edit Profile", String.valueOf(idUser));
 
         name = findViewById(R.id.ti_name);
-        phone = findViewById(R.id.ti_phone_number);
-        city = findViewById(R.id.ti_city);
         country = findViewById(R.id.ti_country);
+        city = findViewById(R.id.ti_city);
+        phone = findViewById(R.id.ti_phone_number);
 
         nameLayout = findViewById(R.id.til_name);
-        phoneLayout =findViewById(R.id.til_phone_number);
-        cityLayout = findViewById(R.id.til_city);
         countryLayout = findViewById(R.id.til_country);
+        cityLayout = findViewById(R.id.til_city);
+        phoneLayout =findViewById(R.id.til_phone_number);
+
+        Intent i = new Intent(getApplicationContext(), EditProfileActivity.class);
+
+        sIdUser = i.getStringExtra("id");
+        sName = i.getStringExtra("name");
+        sEmail = i.getStringExtra("email");
+        sCountry = i.getStringExtra("country");
+        sCity = i.getStringExtra("city");
+        sPhone = i.getStringExtra("phone");
+        getUser();
 
         btnCancel = findViewById(R.id.btn_editCancel);
         btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -149,12 +158,12 @@ public class EditProfileActivity extends AppCompatActivity{
                 startActivity(mainActivity);
             }
         });
-        btnEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+//        btnEdit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                update(view);
+//            }
+//        });
 
         //Profile image pressed
 //        image.setOnClickListener(new View.OnClickListener() {
@@ -185,7 +194,22 @@ public class EditProfileActivity extends AppCompatActivity{
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                update(view);
+                if (nameEdit.isEmpty())
+                {
+                    nameLayout.setError("Please enter your name");
+                }
+                else if (phoneEdit.isEmpty()) {
+                    phoneLayout.setError("Please enter your phone number");
+                }
+                else if (cityEdit.isEmpty()) {
+                    cityLayout.setError("Please enter your city");
+                }
+                else if (countryEdit.isEmpty()) {
+                    countryLayout.setError("Please enter your country");
+                }
+                else{
+                    update();
+                }
             }
         });
     }
@@ -255,31 +279,44 @@ public class EditProfileActivity extends AppCompatActivity{
 //        startActivityForResult(intent,2);
 //    }
 
-    private void getUsers(){
+    private void getUser(){
 
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<UserResponse> load = apiService.getUser("Bearer " + token);
+        Call<UserResponse> load = apiService.getUser("Bearer " + token, idUser);
         load.enqueue(new Callback<UserResponse>()
         {
             @Override
             public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
-                sName = response.body().getUsers().getName();
-                sEmail = response.body().getUsers().getEmail();
-                sPhone = response.body().getUsers().getPhone();
-                sCity = response.body().getUsers().getCity();
-                sCountry = response.body().getUsers().getCountry();
-                sImage = response.body().getUsers().getPhoto();
-                name.setText(sName);
-                phone.setText(sPhone);
-                city.setText(sCity);
-                country.setText(sCountry);
+                if(response.isSuccessful()) {
+                    sName = response.body().getUsers().getName();
+                    sEmail = response.body().getUsers().getEmail();
+                    sCountry = response.body().getUsers().getCountry();
+                    sCity = response.body().getUsers().getCity();
+                    sPhone = response.body().getUsers().getPhone();
+                    sImage = response.body().getUsers().getPhoto();
+                    name.setText(sName);
+                    country.setText(sCountry);
+                    city.setText(sCity);
+                    phone.setText(sPhone);
 
-                String url = "https://www.mehtravellingtubes.xyz/public/api/" + sImage;
-                System.out.println("url gambar " + url);
+                }
+                else {
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        Toast.makeText(getApplicationContext(),
+                                jObjError.getString("message"), Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(),
+                                e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
 
-                Glide.with(getApplicationContext())
-                        .load(url)
-                        .into(image);
+//                String url = "https://www.mehtravellingtubes.xyz/public/api/" + sImage;
+//                System.out.println("url gambar " + url);
+//
+//                Glide.with(getApplicationContext())
+//                        .load(url)
+//                        .into(image);
             }
 
             @Override
@@ -289,46 +326,52 @@ public class EditProfileActivity extends AppCompatActivity{
         });
     }
 
-    private void update(View view) {
+    private void update() {
         //Get value from text fields
-        nameEdit = name.getText().toString();
-        phoneEdit = phone.getText().toString();
-        cityEdit = city.getText().toString();
-        countryEdit = country.getText().toString();
+//        nameEdit = name.getText().toString();
+//        countryEdit = country.getText().toString();
+//        cityEdit = city.getText().toString();
+//        phoneEdit = phone.getText().toString();
 
         //Input Edit Profile Exception
-        if (nameEdit.isEmpty()) nameLayout.setError("Please enter your name");
-        else nameLayout.setError(null);
+//        if (nameEdit.isEmpty())
+//        {
+//            nameLayout.setError("Please enter your name");
+//        }
+//        else {
+//            nameLayout.setError(null);
+//        }
+//
+//        if (phoneEdit.isEmpty()) {
+//            phoneLayout.setError("Please enter your phone number");
+//        }
+//        else {
+//            phoneLayout.setError(null);
+//        }
+//
+//        if (cityEdit.isEmpty()) {
+//            cityLayout.setError("Please enter your city");
+//        }
+//        else {
+//            cityLayout.setError(null);
+//        }
+//
+//        if (countryEdit.isEmpty()) {
+//            countryLayout.setError("Please enter your country");
+//        }
+//        else {
+//            countryLayout.setError(null);
+//        }
 
-        if (phoneEdit.isEmpty()) phoneLayout.setError("Please enter your phone number");
-        else phoneLayout.setError(null);
-
-        if (cityEdit.isEmpty()) cityLayout.setError("Please enter your city");
-        else cityLayout.setError(null);
-
-        if (countryEdit.isEmpty()) countryLayout.setError("Please enter your country");
-        else countryLayout.setError(null);
-
-        if (!nameEdit.isEmpty() && !phoneEdit.isEmpty()
-                && !cityEdit.isEmpty() && !countryEdit.isEmpty()) {
-
-            progressDialog.setMessage("Updating....");
-            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-            progressDialog.show();
-
-//            String gambar = "";
-//            if (bitmap != null){
-//                System.out.println("BITMAP GA NULL");
-//                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-//                bitmap.compress(Bitmap.CompressFormat.PNG,100,byteArrayOutputStream);
-//                byte[] bytes = byteArrayOutputStream.toByteArray();
-//                gambar = Base64.encodeToString(bytes, Base64.DEFAULT);
-//                System.out.println("BASE64" + gambar);
-//            }
+//        if (!nameEdit.isEmpty() && !phoneEdit.isEmpty()
+//                && !cityEdit.isEmpty() && !countryEdit.isEmpty()) {
+//            progressDialog.setMessage("Updating....");
+//            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//            progressDialog.show();
 
             ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-            Call<UserResponse> req = apiService.updateUser(String.valueOf(idUser), nameEdit,
-                    sEmail, countryEdit, cityEdit, phoneEdit,
+            Call<UserResponse> req = apiService.updateUser(String.valueOf(idUser), name.getText().toString(),
+                     country.getText().toString(), city.getText().toString(), phone.getText().toString(),
                     "Bearer " + token);
 
             req.enqueue(new Callback<UserResponse>() {
@@ -344,11 +387,11 @@ public class EditProfileActivity extends AppCompatActivity{
                         try {
                             JSONObject error = new JSONObject(response.errorBody().string());
                             Toast.makeText(getApplicationContext(), error.optString("message"), Toast.LENGTH_SHORT).show();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                        } catch (Exception e) {
+                            Toast.makeText(getApplicationContext(),
+                                    e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
+
                         progressDialog.dismiss();
                     }
                 }
@@ -360,7 +403,7 @@ public class EditProfileActivity extends AppCompatActivity{
                     Log.i("UPDATE", "Msg: " + t.getMessage());
                 }
             });
-        }
+//        }
     }
 
 }

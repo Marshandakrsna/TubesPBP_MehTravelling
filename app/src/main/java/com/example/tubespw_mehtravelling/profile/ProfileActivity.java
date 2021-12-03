@@ -35,6 +35,8 @@ import com.example.tubespw_mehtravelling.profile.model.User;
 import com.google.android.material.textview.MaterialTextView;
 
 
+import org.json.JSONObject;
+
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -48,8 +50,8 @@ public class ProfileActivity extends AppCompatActivity {
     private MaterialTextView email, name, username, phone, city, country;
     private CircleImageView image;
     private List<User> userList;
-    private String sIdUser, sName, sEmail, sCountry, sCity, sPhone, sImage;
-    Bitmap[] array;
+    private String sIdUser, sName, sEmail, sCountry, sCity, sPhone;
+
 
     Button btnEdit;
     SharedPreferences shared;
@@ -88,10 +90,12 @@ public class ProfileActivity extends AppCompatActivity {
 //        }
 
         //Get sharepreferences for ID user
+//        long id = getIntent().getLongExtra("id",1);
         shared = getSharedPreferences("getId", Context.MODE_PRIVATE);
         idUser = shared.getInt("idUser", -1);
         token = shared.getString("token", null);
         Log.d("ID USER Profile", String.valueOf(idUser));
+
 
         name = findViewById(R.id.tv_nama);
         email = findViewById(R.id.et_email);
@@ -130,7 +134,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void loadUser() {
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-        Call<UserResponse> load = apiService.getUser("Bearer " + token);
+        Call<UserResponse> load = apiService.getUser("Bearer " + token, idUser);
         load.enqueue(new Callback<UserResponse>()
         {
             @Override
@@ -148,6 +152,15 @@ public class ProfileActivity extends AppCompatActivity {
                     phone.setText(sPhone);
                     city.setText(sCity);
                     country.setText(sCountry);
+                }else {
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        Toast.makeText(getApplicationContext(),
+                                jObjError.getString("message"), Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(),
+                                e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
                 }
 
 //                String url = "https://www.mehtravellingtubes.xyz/public/api/" + sImage;
@@ -165,6 +178,6 @@ public class ProfileActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Kesalahan Jaringan", Toast.LENGTH_SHORT).show();
             }
         });
-            Toast.makeText(ProfileActivity.this,"Berhasil",Toast.LENGTH_SHORT).show();
+
         }
 }

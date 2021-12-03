@@ -66,15 +66,6 @@
                     android:textAlignment="center"
                     android:textSize="28sp" />
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/profile_image_edit"
-                    android:layout_width="130dp"
-                    android:layout_height="117dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="20dp"
-                    app:civ_border_color="#009688"
-                    app:civ_border_width="2dp"
-                    android:src="@android:color/darker_gray" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_name"
@@ -94,20 +85,20 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_phone_number"
+                    android:id="@+id/til_country"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:errorEnabled="true"
-                    android:hint="@string/phone_number"
+                    android:hint="@string/country"
                     android:layout_marginTop="5dp"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ti_phone_number"
+                        android:id="@+id/ti_country"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:fontFamily="@font/raleway_medium"
-                        android:inputType="phone" />
+                        android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -128,20 +119,20 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/til_country"
+                    android:id="@+id/til_phone_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:errorEnabled="true"
                     android:layout_marginTop="5dp"
-                    android:hint="@string/country"
+                    android:hint="@string/phone_number"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/ti_country"
+                        android:id="@+id/ti_phone_number"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:fontFamily="@font/raleway_medium"
-                        android:inputType="text" />
+                        android:inputType="phone" />
                 </com.google.android.material.textfield.TextInputLayout>
                 <LinearLayout
                     android:layout_width="wrap_content"
