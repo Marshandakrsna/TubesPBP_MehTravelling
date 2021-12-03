@@ -198,7 +198,7 @@ public class EditProfileActivity extends AppCompatActivity{
         switch (requestCode) {
             case PERMISSION_CODE: {
                 if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    capturePhoto(); // permission from popup was granted
+                    //capturePhoto(); // permission from popup was granted
                 } else {
                     Toast.makeText(this.getApplicationContext(), "Permission Denied", Toast.LENGTH_SHORT).show();
                 }
@@ -207,53 +207,53 @@ public class EditProfileActivity extends AppCompatActivity{
     }
 
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK && requestCode == 1)
-        {
-            selectedImage = data.getData();
-            try {
-                InputStream inputStream = getContentResolver().openInputStream(selectedImage);
-                bitmap = BitmapFactory.decodeStream(inputStream);
-            } catch (Exception e) {
-                Toast.makeText(view.getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-            image.setImageBitmap(bitmap);
-            bitmap = getResizedBitmap(bitmap, 512);
-        }
-        else if(resultCode == RESULT_OK && requestCode == 2)
-        {
-            Bundle extras = data.getExtras();
-            bitmap = (Bitmap) extras.get("data");
-            image.setImageBitmap(bitmap);
-            bitmap = getResizedBitmap(bitmap, 512);
-        }
-    }
-
-
-    public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
-        int width = image.getWidth();
-        int height = image.getHeight();
-
-        float bitmapRatio = (float)width / (float) height;
-        if (bitmapRatio > 1) {
-            width = maxSize;
-            height = (int) (width / bitmapRatio);
-        } else {
-            height = maxSize;
-            width = (int) (height * bitmapRatio);
-        }
-        return Bitmap.createScaledBitmap(image, width, height, true);
-    }
-
-    //Camera
-    public void capturePhoto() {
-
-
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        startActivityForResult(intent,2);
-    }
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (resultCode == RESULT_OK && requestCode == 1)
+//        {
+//            selectedImage = data.getData();
+//            try {
+//                InputStream inputStream = getContentResolver().openInputStream(selectedImage);
+//                bitmap = BitmapFactory.decodeStream(inputStream);
+//            } catch (Exception e) {
+//                Toast.makeText(view.getContext(), e.getMessage(), Toast.LENGTH_SHORT).show();
+//            }
+//            image.setImageBitmap(bitmap);
+//            bitmap = getResizedBitmap(bitmap, 512);
+//        }
+//        else if(resultCode == RESULT_OK && requestCode == 2)
+//        {
+//            Bundle extras = data.getExtras();
+//            bitmap = (Bitmap) extras.get("data");
+//            image.setImageBitmap(bitmap);
+//            bitmap = getResizedBitmap(bitmap, 512);
+//        }
+//    }
+//
+//
+//    public Bitmap getResizedBitmap(Bitmap image, int maxSize) {
+//        int width = image.getWidth();
+//        int height = image.getHeight();
+//
+//        float bitmapRatio = (float)width / (float) height;
+//        if (bitmapRatio > 1) {
+//            width = maxSize;
+//            height = (int) (width / bitmapRatio);
+//        } else {
+//            height = maxSize;
+//            width = (int) (height * bitmapRatio);
+//        }
+//        return Bitmap.createScaledBitmap(image, width, height, true);
+//    }
+//
+//    //Camera
+//    public void capturePhoto() {
+//
+//
+//        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//        startActivityForResult(intent,2);
+//    }
 
     private void getUsers(){
 
@@ -316,19 +316,19 @@ public class EditProfileActivity extends AppCompatActivity{
             progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
             progressDialog.show();
 
-            String gambar = "";
-            if (bitmap != null){
-                System.out.println("BITMAP GA NULL");
-                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.PNG,100,byteArrayOutputStream);
-                byte[] bytes = byteArrayOutputStream.toByteArray();
-                gambar = Base64.encodeToString(bytes, Base64.DEFAULT);
-                System.out.println("BASE64" + gambar);
-            }
+//            String gambar = "";
+//            if (bitmap != null){
+//                System.out.println("BITMAP GA NULL");
+//                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+//                bitmap.compress(Bitmap.CompressFormat.PNG,100,byteArrayOutputStream);
+//                byte[] bytes = byteArrayOutputStream.toByteArray();
+//                gambar = Base64.encodeToString(bytes, Base64.DEFAULT);
+//                System.out.println("BASE64" + gambar);
+//            }
 
             ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
             Call<UserResponse> req = apiService.updateUser(String.valueOf(idUser), nameEdit,
-                    sEmail, countryEdit, cityEdit, phoneEdit, gambar,
+                    sEmail, countryEdit, cityEdit, phoneEdit,
                     "Bearer " + token);
 
             req.enqueue(new Callback<UserResponse>() {

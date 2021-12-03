@@ -46,6 +46,6 @@ public interface ApiInterface {
                                   @Field("country") String country,
                                   @Field("city") String city,
                                   @Field("phone") String phone,
-                                  @Field("img_user") String img_user,
+//                                  @Field("img_user") String img_user,
                                   @Header("Authorization") String authToken);
 }

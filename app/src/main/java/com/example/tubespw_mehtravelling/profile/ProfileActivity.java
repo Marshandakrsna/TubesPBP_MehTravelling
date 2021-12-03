@@ -98,7 +98,7 @@ public class ProfileActivity extends AppCompatActivity {
         phone = findViewById(R.id.et_phone);
         country = findViewById(R.id.et_country);
         city =findViewById(R.id.et_city);
-        image = findViewById(R.id.profile_image_profile);
+//        image = findViewById(R.id.profile_image_profile);
 
         Intent i = new Intent(getApplicationContext(), ProfileActivity.class);
         sIdUser = i.getStringExtra("id");
@@ -107,7 +107,7 @@ public class ProfileActivity extends AppCompatActivity {
         sCountry = i.getStringExtra("country");
         sCity = i.getStringExtra("city");
         sPhone = i.getStringExtra("phone");
-        sImage = i.getStringExtra("image");
+//        sImage = i.getStringExtra("image");
 
         name.setText(sName);
         email.setText(sEmail);
@@ -142,7 +142,7 @@ public class ProfileActivity extends AppCompatActivity {
                     sPhone = response.body().getUsers().getPhone();
                     sCity = response.body().getUsers().getCity();
                     sCountry = response.body().getUsers().getCountry();
-                    sImage = response.body().getUsers().getPhoto();
+//                    sImage = response.body().getUsers().getPhoto();
                     name.setText(sName);
                     email.setText(sEmail);
                     phone.setText(sPhone);
@@ -150,12 +150,12 @@ public class ProfileActivity extends AppCompatActivity {
                     country.setText(sCountry);
                 }
 
-                String url = "https://www.mehtravellingtubes.xyz/public/api/" + sImage;
-                System.out.println("url gambar " + url);
+//                String url = "https://www.mehtravellingtubes.xyz/public/api/" + sImage;
+//                System.out.println("url gambar " + url);
 
-                Glide.with(ProfileActivity.this)
-                        .load("https://www.mehtravellingtubes.xyz/public/api/" + sImage)
-                        .into(image);
+//                Glide.with(ProfileActivity.this)
+//                        .load("https://www.mehtravellingtubes.xyz/public/api/" + sImage)
+//                        .into(image);
 //                Glide.with(getApplicationContext())
 //                        .load(url)
 //                        .into(image);
