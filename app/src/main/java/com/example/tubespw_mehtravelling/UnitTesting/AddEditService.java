@@ -24,7 +24,7 @@ public class AddEditService {
             public void onResponse(Call<SurveyResponse> call,
                                    Response<SurveyResponse> response) {
 
-                if (response.body().getMessage().equalsIgnoreCase("berhasil daftar"
+                if (response.body().getMessage().equalsIgnoreCase("berhasil mendaftar"
                 )) {
                     callback.onSuccess(true,
                             response.body().getSurveyList().get(0));
