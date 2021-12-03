@@ -31,13 +31,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         this.listdestinasi = listdestinasi;
     }
 
-    //    @NonNull
-//    @Override
-//    public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-//        ActivityRecyclerViewAdapterBinding binding = DataBindingUtil.inflate(inflater, R.layout.activity_recycler_view_adapter, parent, false);
-//        return new viewHolder(binding);
-//    }
+
     @NonNull
     @Override
     public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
