@@ -89,8 +89,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:errorEnabled="true"
-                    android:hint="@string/country"
                     android:layout_marginTop="5dp"
+                    android:hint="@string/country"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -118,13 +118,14 @@
                         android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
 
+
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_phone_number"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:errorEnabled="true"
-                    android:layout_marginTop="5dp"
                     android:hint="@string/phone_number"
+                    android:layout_marginTop="5dp"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -134,6 +135,7 @@
                         android:fontFamily="@font/raleway_medium"
                         android:inputType="phone" />
                 </com.google.android.material.textfield.TextInputLayout>
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

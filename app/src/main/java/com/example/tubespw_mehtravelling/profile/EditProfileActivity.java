@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -57,7 +58,8 @@ import retrofit2.Response;
 
 public class EditProfileActivity extends AppCompatActivity{
     private TextInputLayout nameLayout, phoneLayout, cityLayout, countryLayout;
-    private TextInputEditText name, phone, city, country;
+    private EditText name, phone, city, country;
+//    private TextInputEditText name, phone, city, country;
     private String nameEdit, phoneEdit, cityEdit, countryEdit;
     private CircleImageView image;
     EditProfileBinding editProfileBinding;
@@ -74,10 +76,8 @@ public class EditProfileActivity extends AppCompatActivity{
     //Camera
     private static final int PERMISSION_CODE = 1000;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
-    Uri imgUri;
     private Uri selectedImage = null;
     private Bitmap bitmap;
-
     private ProgressDialog progressDialog;
 
 
@@ -119,7 +119,7 @@ public class EditProfileActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_profile);
 
-        btnEdit = findViewById(R.id.btn_editSubmitProfile);
+
         editProfileBinding = DataBindingUtil.setContentView(this, R.layout.edit_profile);
 //        editProfileBinding.setActivity(this);
 
@@ -129,15 +129,20 @@ public class EditProfileActivity extends AppCompatActivity{
         token = shared.getString("token", null);
         Log.d("ID USER Edit Profile", String.valueOf(idUser));
 
+//        name = findViewById(R.id.ti_name);
+//        country = findViewById(R.id.ti_country);
+//        city = findViewById(R.id.ti_city);
+//        phone = findViewById(R.id.ti_phone_number);
+
         name = findViewById(R.id.ti_name);
         country = findViewById(R.id.ti_country);
         city = findViewById(R.id.ti_city);
         phone = findViewById(R.id.ti_phone_number);
 
-        nameLayout = findViewById(R.id.til_name);
-        countryLayout = findViewById(R.id.til_country);
-        cityLayout = findViewById(R.id.til_city);
-        phoneLayout =findViewById(R.id.til_phone_number);
+//        nameLayout = findViewById(R.id.til_name);
+//        countryLayout = findViewById(R.id.til_country);
+//        cityLayout = findViewById(R.id.til_city);
+//        phoneLayout =findViewById(R.id.til_phone_number);
 
         Intent i = new Intent(getApplicationContext(), EditProfileActivity.class);
 
@@ -190,26 +195,22 @@ public class EditProfileActivity extends AppCompatActivity{
 //            }
 //        });
 
+        btnEdit = findViewById(R.id.btn_editSubmitProfile);
         //Button edit profile pressed
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (nameEdit.isEmpty())
+                if (name.getText().toString().isEmpty())
                 {
-                    nameLayout.setError("Please enter your name");
-                }
-                else if (phoneEdit.isEmpty()) {
-                    phoneLayout.setError("Please enter your phone number");
-                }
-                else if (cityEdit.isEmpty()) {
-                    cityLayout.setError("Please enter your city");
-                }
-                else if (countryEdit.isEmpty()) {
-                    countryLayout.setError("Please enter your country");
-                }
+                    Toast.makeText(EditProfileActivity.this, "Please 1", Toast.LENGTH_SHORT).show(); }
+                else if (phone.getText().toString().isEmpty()) {
+                    Toast.makeText(EditProfileActivity.this, "Please 2", Toast.LENGTH_SHORT).show(); }
+                else if (city.getText().toString().isEmpty()) {
+                    Toast.makeText(EditProfileActivity.this, "Please 3", Toast.LENGTH_SHORT).show(); }
+                else if (country.getText().toString().isEmpty()) {
+                    Toast.makeText(EditProfileActivity.this, "Please 4", Toast.LENGTH_SHORT).show(); }
                 else{
-                    update();
-                }
+                    update(); }
             }
         });
     }
@@ -369,11 +370,9 @@ public class EditProfileActivity extends AppCompatActivity{
 //            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 //            progressDialog.show();
 
-            ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-            Call<UserResponse> req = apiService.updateUser(String.valueOf(idUser), name.getText().toString(),
-                     country.getText().toString(), city.getText().toString(), phone.getText().toString(),
-                    "Bearer " + token);
 
+        ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
+        Call<UserResponse> req = apiService.updateUser(String.valueOf(idUser), name.getText().toString(), country.getText().toString(), city.getText().toString(), phone.getText().toString(), "Bearer " + token);
             req.enqueue(new Callback<UserResponse>() {
                 @Override
                 public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {

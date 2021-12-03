@@ -143,15 +143,16 @@ public class ProfileActivity extends AppCompatActivity {
 
                     sName = response.body().getUsers().getName();
                     sEmail = response.body().getUsers().getEmail();
-                    sPhone = response.body().getUsers().getPhone();
-                    sCity = response.body().getUsers().getCity();
                     sCountry = response.body().getUsers().getCountry();
+                    sCity = response.body().getUsers().getCity();
+                    sPhone = response.body().getUsers().getPhone();
+
 //                    sImage = response.body().getUsers().getPhoto();
                     name.setText(sName);
                     email.setText(sEmail);
-                    phone.setText(sPhone);
-                    city.setText(sCity);
                     country.setText(sCountry);
+                    city.setText(sCity);
+                    phone.setText(sPhone);
                 }else {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());

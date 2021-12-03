@@ -258,7 +258,7 @@ public class RegisterActivity extends AppCompatActivity {
             progressDialog.show();
             Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
             ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
-            Call<UserResponse> add = apiService.register(nameSign, emailSign, passSign, phoneSign, citySign, countrySign, "asdasd");
+            Call<UserResponse> add = apiService.register(nameSign, emailSign, passSign,countrySign,citySign, phoneSign, "asdasd");
 //            Call<UserResponse> add = apiService.register(nameSign, emailSign, passSign, phoneSign, citySign, countrySign, imgUri.toString());
             Log.d("asdasd","Masuk ke on response");
 
