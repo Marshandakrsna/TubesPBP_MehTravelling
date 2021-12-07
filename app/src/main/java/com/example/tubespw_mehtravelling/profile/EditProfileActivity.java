@@ -202,13 +202,13 @@ public class EditProfileActivity extends AppCompatActivity{
             public void onClick(View view) {
                 if (name.getText().toString().isEmpty())
                 {
-                    Toast.makeText(EditProfileActivity.this, "Please 1", Toast.LENGTH_SHORT).show(); }
-                else if (phone.getText().toString().isEmpty()) {
-                    Toast.makeText(EditProfileActivity.this, "Please 2", Toast.LENGTH_SHORT).show(); }
-                else if (city.getText().toString().isEmpty()) {
-                    Toast.makeText(EditProfileActivity.this, "Please 3", Toast.LENGTH_SHORT).show(); }
+                    Toast.makeText(EditProfileActivity.this, "Nama tidak boleh kosong", Toast.LENGTH_SHORT).show(); }
                 else if (country.getText().toString().isEmpty()) {
-                    Toast.makeText(EditProfileActivity.this, "Please 4", Toast.LENGTH_SHORT).show(); }
+                    Toast.makeText(EditProfileActivity.this, "Country tidak boleh kosong", Toast.LENGTH_SHORT).show(); }
+                else if (city.getText().toString().isEmpty()) {
+                    Toast.makeText(EditProfileActivity.this, "City tidak boleh kosong", Toast.LENGTH_SHORT).show(); }
+                else if (phone.getText().toString().isEmpty()) {
+                    Toast.makeText(EditProfileActivity.this, "Phone Number tidak boleh kosong", Toast.LENGTH_SHORT).show(); }
                 else{
                     update(); }
             }
@@ -328,49 +328,6 @@ public class EditProfileActivity extends AppCompatActivity{
     }
 
     private void update() {
-        //Get value from text fields
-//        nameEdit = name.getText().toString();
-//        countryEdit = country.getText().toString();
-//        cityEdit = city.getText().toString();
-//        phoneEdit = phone.getText().toString();
-
-        //Input Edit Profile Exception
-//        if (nameEdit.isEmpty())
-//        {
-//            nameLayout.setError("Please enter your name");
-//        }
-//        else {
-//            nameLayout.setError(null);
-//        }
-//
-//        if (phoneEdit.isEmpty()) {
-//            phoneLayout.setError("Please enter your phone number");
-//        }
-//        else {
-//            phoneLayout.setError(null);
-//        }
-//
-//        if (cityEdit.isEmpty()) {
-//            cityLayout.setError("Please enter your city");
-//        }
-//        else {
-//            cityLayout.setError(null);
-//        }
-//
-//        if (countryEdit.isEmpty()) {
-//            countryLayout.setError("Please enter your country");
-//        }
-//        else {
-//            countryLayout.setError(null);
-//        }
-
-//        if (!nameEdit.isEmpty() && !phoneEdit.isEmpty()
-//                && !cityEdit.isEmpty() && !countryEdit.isEmpty()) {
-//            progressDialog.setMessage("Updating....");
-//            progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-//            progressDialog.show();
-
-
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
         Call<UserResponse> req = apiService.updateUser(String.valueOf(idUser), name.getText().toString(), country.getText().toString(), city.getText().toString(), phone.getText().toString(), "Bearer " + token);
             req.enqueue(new Callback<UserResponse>() {
@@ -380,7 +337,7 @@ public class EditProfileActivity extends AppCompatActivity{
                     if (response.isSuccessful()) {
                         Toast.makeText(getApplicationContext(), response.body().getMessage(), Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();
-                        Intent mainActivity = new Intent(EditProfileActivity.this, MainActivity.class);
+                        Intent mainActivity = new Intent(EditProfileActivity.this, ProfileActivity.class);
                         startActivity(mainActivity);
                     } else { //If response's code is 4xx (error)
                         try {

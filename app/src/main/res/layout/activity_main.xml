@@ -33,7 +33,7 @@
                     android:textSize="25dp"
                     android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:text="@string/welcome_marshanda"/>
+                    android:text="@string/welcome"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -170,15 +170,15 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/btnAboutUs"
+                        android:id="@+id/btnImageSlider"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_rowWeight="1"
                         android:layout_margin="12dp"
                         android:clickable="true"
-                        android:onClick="@{activity.btnAboutUs}"
+                        android:onClick="@{activity.btnImageSlider}"
                         android:foreground="?android:attr/selectableItemBackground"
-                        app:cardBackgroundColor="#4C8EDF"
+                        app:cardBackgroundColor="#9FC666"
                         app:cardCornerRadius="6dp"
                         app:cardElevation="6dp">
 
@@ -192,13 +192,13 @@
                             <ImageView
                                 android:layout_width="80dp"
                                 android:layout_height="80dp"
-                                android:background="@drawable/ic_baseline_people_alt_24" />
+                                android:background="@drawable/ic_baseline_image_search_24" />
 
                             <TextView
                                 android:layout_width="110dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="12dp"
-                                android:text="@string/about_us"
+                                android:text="IMAGE DESTINASI"
                                 android:textAlignment="center"
                                 android:textColor="@color/black"
                                 android:textStyle="bold" />
@@ -252,7 +252,7 @@
                         android:clickable="true"
                         android:onClick="@{activity.btnSurvey}"
                         android:foreground="?android:attr/selectableItemBackground"
-                        app:cardBackgroundColor="#FFFF00"
+                        app:cardBackgroundColor="#E4C125"
                         app:cardCornerRadius="6dp"
                         app:cardElevation="6dp">
 
@@ -288,7 +288,7 @@
                         android:clickable="true"
                         android:onClick="@{activity.btnProfileMenu}"
                         android:foreground="?android:attr/selectableItemBackground"
-                        app:cardBackgroundColor="#87cefa"
+                        app:cardBackgroundColor="#D879AD"
                         app:cardCornerRadius="6dp"
                         app:cardElevation="6dp">
 
@@ -302,7 +302,7 @@
                             <ImageView
                                 android:layout_width="80dp"
                                 android:layout_height="80dp"
-                                android:background="@drawable/ic_baseline_person_24" />
+                                android:background="@drawable/ic_baseline_manage_accounts_24" />
 
                             <TextView
                                 android:layout_width="110dp"
@@ -313,6 +313,42 @@
                                 android:textColor="@color/black"
                                 android:textStyle="bold" />
                         </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/btnAboutUs"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_rowWeight="1"
+                        android:layout_margin="12dp"
+                        android:clickable="true"
+                        android:onClick="@{activity.btnAboutUs}"
+                        android:foreground="?android:attr/selectableItemBackground"
+                        app:cardBackgroundColor="#4C8EDF"
+                        app:cardCornerRadius="6dp"
+                        app:cardElevation="6dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="16dp">
+
+                            <ImageView
+                                android:layout_width="80dp"
+                                android:layout_height="80dp"
+                                android:background="@drawable/ic_baseline_people_alt_24" />
+
+                            <TextView
+                                android:layout_width="110dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="12dp"
+                                android:text="@string/about_us"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+
                     </androidx.cardview.widget.CardView>
                 </GridLayout>
             </ScrollView>

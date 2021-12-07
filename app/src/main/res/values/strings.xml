@@ -53,7 +53,7 @@
     <string name="riwayat_pemesanan">RIWAYAT PEMESANAN</string>
     <string name="pesan">PESAN</string>
     <!--    <string name="list_destinasi">LIST DESTINASI</string>-->
-    <string name="welcome_marshanda">Welcome, MARSHANDA</string>
+    <string name="welcome">Welcome, Traveler</string>
     <string name="survey_destinasi">SURVEY DESTINASI</string>
     <string name="profile">PROFILE</string>
     <string name="destinasi_name">Nama Destinasi</string>

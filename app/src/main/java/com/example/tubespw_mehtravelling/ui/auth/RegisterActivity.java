@@ -1,6 +1,10 @@
 package com.example.tubespw_mehtravelling.ui.auth;
 
+import static com.example.tubespw_mehtravelling.PushNotif.MyApplication.CHANNEL_1_ID;
+
 import android.Manifest;
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -8,6 +12,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -22,12 +27,15 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.bumptech.glide.Glide;
 import com.example.tubespw_mehtravelling.API.ApiClient;
 import com.example.tubespw_mehtravelling.API.ApiInterface;
 import com.example.tubespw_mehtravelling.API.User.UserResponse;
 import com.example.tubespw_mehtravelling.Constant;
+import com.example.tubespw_mehtravelling.PushNotif.NotificationReceiver;
 import com.example.tubespw_mehtravelling.R;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
@@ -54,7 +62,7 @@ public class RegisterActivity extends AppCompatActivity {
     CircleImageView profilePict;
     MaterialButton signUpBtn, cancelBtn;
     private ProgressDialog progressDialog;
-
+    private NotificationManagerCompat notificationManager;
     //Camera
     private static final int PERMISSION_CODE = 1000;
     private static final int REQUEST_IMAGE_CAPTURE = 1;
@@ -111,8 +119,30 @@ public class RegisterActivity extends AppCompatActivity {
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(RegisterActivity.this, "Resgister Berhasil", Toast.LENGTH_SHORT).show();
+
                 addUser();
+
+//                Intent activityIntent = new Intent(this,RegisterActivity.class);
+//                PendingIntent contentIntent = PendingIntent.getActivity(this,0,activityIntent,0);
+//
+//                Intent broadcastIntent = new Intent(this, NotificationReceiver.class);
+//                broadcastIntent.putExtra("toastMessage",message);
+//                PendingIntent actionIntent = PendingIntent.getBroadcast(this,0,broadcastIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+//
+//                Notification notification = new NotificationCompat.Builder(this,CHANNEL_1_ID)
+//                        .setSmallIcon(R.drawable.ic_baseline_looks_one_24)
+//                        .setContentTitle("Selamat datang di Aplikasi Meh Travelling")
+//                        .setContentText("Dapatkan diskon hingga 50% dan voucher berhadiah")
+//                        .setPriority(NotificationCompat.PRIORITY_HIGH)
+//                        .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+//                        .setColor(Color.BLUE)
+//                        .setContentIntent(contentIntent)
+//                        .setAutoCancel(true)
+//                        .setOnlyAlertOnce(true)
+//                        .addAction(R.mipmap.ic_launcher,"Toast",actionIntent)
+//                        .build();
+//
+//                notificationManager.notify(1,notification);
             }
         });
 
@@ -256,7 +286,8 @@ public class RegisterActivity extends AppCompatActivity {
             progressDialog.setMessage("Processing....");
             progressDialog.setProgressStyle(android.app.ProgressDialog.STYLE_SPINNER);
             progressDialog.show();
-            Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegisterActivity.this, "Register Berhasil", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Permission Denied", Toast.LENGTH_SHORT).show();
             ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
             Call<UserResponse> add = apiService.register(nameSign, emailSign, passSign,countrySign,citySign, phoneSign, "asdasd");
 //            Call<UserResponse> add = apiService.register(nameSign, emailSign, passSign, phoneSign, citySign, countrySign, imgUri.toString());

@@ -129,6 +129,14 @@ public class ProfileActivity extends AppCompatActivity {
                 finish();
             }
         });
+        Button btnBack = findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ProfileActivity.this, MainActivity.class));
+                finish();
+            }
+        });
 
     }
 

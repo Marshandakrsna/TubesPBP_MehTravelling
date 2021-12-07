@@ -93,7 +93,7 @@ dependencies {
     implementation 'com.budiyev.android:code-scanner:2.1.0'
 
     implementation 'com.google.android.material:material:1.0.0'
-//Unit Testing
+    //Unit Testing
     testImplementation 'org.mockito:mockito-all:1.10.19'
     androidTestImplementation 'androidx.test:runner:1.4.0'
     androidTestImplementation 'androidx.test:rules:1.4.0'
@@ -104,5 +104,7 @@ dependencies {
     // Optional -- UI testing with UI Automator
     androidTestImplementation 'androidx.test.uiautomator:uiautomator:2.2.0'
 
+    //UI interface
+    implementation 'com.github.smarteist:autoimageslider:1.4.0'
 
 }

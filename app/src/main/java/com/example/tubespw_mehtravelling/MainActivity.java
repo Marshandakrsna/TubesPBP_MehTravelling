@@ -22,6 +22,7 @@ import com.example.tubespw_mehtravelling.API.User.UserResponse;
 import com.example.tubespw_mehtravelling.Preferences.UserPreferences;
 import com.example.tubespw_mehtravelling.databinding.ActivityMainBinding;
 import com.example.tubespw_mehtravelling.hardware.QRScannerMain;
+import com.example.tubespw_mehtravelling.libraryUI.ImageSliderMain;
 import com.example.tubespw_mehtravelling.listDestinasi.TampilDataDestinasi;
 import com.example.tubespw_mehtravelling.pesanDestinasi.ActivityInputPesan;
 import com.example.tubespw_mehtravelling.pesanDestinasi.PesanActivity;
@@ -79,7 +80,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         else if(item.getItemId()==R.id.menu_logout) {
-            logout();
+//            logout();
+            Intent moveToLogin = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(moveToLogin);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -164,6 +167,13 @@ public class MainActivity extends AppCompatActivity {
             startActivity(mainActivity);
         }
     };
+    public View.OnClickListener btnImageSlider= new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent mainActivity = new Intent(MainActivity.this, ImageSliderMain.class);
+            startActivity(mainActivity);
+        }
+    };
 
 
 
@@ -208,8 +218,7 @@ public void logout() {
                 editor.apply();
                 Toast.makeText(MainActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
                 progressDialog.dismiss();
-
-                Intent moveToLogin = new Intent(getApplicationContext(), LoginActivity.class);
+                Intent moveToLogin = new Intent(MainActivity.this, LoginActivity.class);
                 startActivity(moveToLogin);
                 finish();
             } else {  //If response's code is 4xx (error)
@@ -224,7 +233,6 @@ public void logout() {
                 progressDialog.dismiss();
             }
         }
-
         @Override
         public void onFailure(Call<UserResponse> call, Throwable t) {
             Toast.makeText(MainActivity.this, "Logout Failed", Toast.LENGTH_SHORT).show();

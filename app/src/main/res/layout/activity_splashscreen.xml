@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SplashScreen"
-    android:id="@+id/splash_screen">
+    android:id="@+id/splashscreen_fix">
 
     <ImageView
         android:layout_width="match_parent"

@@ -15,40 +15,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.profile.EditProfileActivity"
-        android:background="?android:attr/colorBackground">
+        android:background="@drawable/dashboard">
         <!-- Custom Toolbar -->
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:minHeight="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:titleTextColor="?attr/colorAccent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/app_name"
-                android:textColor="?attr/colorAccent"
-                android:textSize="23sp"
-                android:theme="@style/MainToolbarTheme" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Profile"
-                android:textColor="?attr/colorAccent"
-                android:textSize="23sp"/>
-        </androidx.appcompat.widget.Toolbar>
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="55dp"
-            android:layout_marginBottom="50dp">
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -62,19 +34,20 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/raleway_bold"
                     android:text="Edit Profile"
-                    android:textColor="?attr/colorAccent"
                     android:textAlignment="center"
-                    android:textSize="28sp" />
+                    android:textColor="?attr/colorAccent"
+                    android:textSize="28sp"
+                    android:layout_marginTop="150dp"/>
 
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_name"
-                    android:layout_marginTop="16dp"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:errorEnabled="true"
+                    android:layout_marginTop="16dp"
                     android:hint="@string/nama"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                    app:errorEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/ti_name"
@@ -86,12 +59,12 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_country"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:errorEnabled="true"
                     android:layout_marginTop="5dp"
                     android:hint="@string/country"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                    app:errorEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/ti_country"
@@ -103,12 +76,12 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_city"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:errorEnabled="true"
-                    android:hint="@string/city"
                     android:layout_marginTop="5dp"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                    android:hint="@string/city"
+                    app:errorEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/ti_city"
@@ -121,12 +94,12 @@
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/til_phone_number"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:errorEnabled="true"
-                    android:hint="@string/phone_number"
                     android:layout_marginTop="5dp"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+                    android:hint="@string/phone_number"
+                    app:errorEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/ti_phone_number"
@@ -139,9 +112,10 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
                     android:layout_gravity="center"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_editCancel"
                         android:layout_width="wrap_content"
@@ -150,6 +124,7 @@
                         android:fontFamily="@font/raleway_medium"
                         android:text="Cancel"
                         android:textSize="16sp" />
+
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btn_editSubmitProfile"
                         android:layout_width="wrap_content"
