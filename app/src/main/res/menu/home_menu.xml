@@ -2,6 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/menu_scanner"
         android:title="QR Scanner"/>
+    <item android:id="@+id/menu_profile"
+        android:title="Profile"/>
     <item android:id="@+id/menu_logout"
         android:title="Exit App"/>
+
 </menu>
